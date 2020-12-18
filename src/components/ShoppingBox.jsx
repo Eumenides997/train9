@@ -6,7 +6,7 @@ class ShoppingBox extends React.Component {
         const Goods = []
         for (let index = 0; index < 10; index++) {
             Goods.push(
-                <List.Item
+                <List.Item key={index}
                     actions={[
                         <Button.Group size="small">
                             <Button > - </Button>
