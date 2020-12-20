@@ -12,15 +12,12 @@ import ShoppingBox from '../components/ShoppingBox'
 }))
 
 class IndexPage extends React.Component {
-  state = {
-    current: 'mail'
-  }
-  handleClick = e => {
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
-  };
+  constructor() {
+    super()
+    this.state = {
+        visible: false
+    }
+}
   openDrawer = () => {
     this.setState({
       visible: true

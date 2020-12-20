@@ -28,8 +28,8 @@ class Products extends React.Component {
         await dispatch({
             type: 'shoppingBox/boxAdd',
             payload: {
-                data: data,
-                size: size
+                data,
+                size
             }
         })
     }
