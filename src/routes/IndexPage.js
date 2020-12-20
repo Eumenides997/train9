@@ -7,10 +7,20 @@ import { Layout, Drawer, Button, Badge } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import ShoppingBox from '../components/ShoppingBox'
 
+@connect(({ shoppingBox }) => ({
+  count: shoppingBox.count
+}))
+
 class IndexPage extends React.Component {
   state = {
-    visible: false
+    current: 'mail'
   }
+  handleClick = e => {
+    console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
+  };
   openDrawer = () => {
     this.setState({
       visible: true
@@ -22,7 +32,8 @@ class IndexPage extends React.Component {
     })
   }
   render() {
-    const { Header, Content, Footer } = Layout;
+    const { Header, Content } = Layout;
+    const { count } = this.props
 
     return (
       <div>
@@ -35,7 +46,7 @@ class IndexPage extends React.Component {
           </Content>
         </Layout>
         <div style={{ position: 'fixed', zIndex: 2, top: 16, left: "80%" }} >
-          <Badge>
+          <Badge count={count} showZero>
             <Button icon={<ShoppingCartOutlined />} style={{ fontSize: "16px" }} onClick={this.openDrawer}>
               购物车
             </Button>

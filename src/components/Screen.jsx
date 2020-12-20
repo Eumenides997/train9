@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Dropdown, Icon } from 'antd';
+import { Menu, Dropdown } from 'antd';
 
 class Screen extends React.Component {
 
