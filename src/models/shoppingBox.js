@@ -61,7 +61,9 @@ export default {
                 })
                 count++
             }
-            boxData.forEach(element => {
+            let amount = 0
+            boxData.forEach(item => {
+                amount += item.price * item.number
             });
             // redux 更新了state后，组件没有更新，没有重新渲染的问题原因是 state是引用，直接修改state的时候store内部的state同样也就变了，redux认为dispatch前后的state没有改变，就不会render，所以如果要取这整个对象进行一些修改，可以使用Object.assign或者直接简单粗暴地拷贝一份
             let myBoxData = JSON.parse(JSON.stringify(boxData))
@@ -69,7 +71,8 @@ export default {
             return {
                 ...state,
                 boxData: myBoxData,
-                count
+                count,
+                amount
             }
         },
         delete(state, payload) {
@@ -86,10 +89,15 @@ export default {
                 count += item.number
             })
             let myBoxData = JSON.parse(JSON.stringify(boxData))
+            let amount = 0
+            boxData.forEach(item => {
+                amount += item.price * item.number
+            });
             return {
                 ...state,
                 boxData: myBoxData,
-                count
+                count,
+                amount
             }
         },
         change(state, payload) {
@@ -98,10 +106,9 @@ export default {
             // console.log('data', data, 'num:', num)
             boxData.forEach(item => {
                 if (item.title === data.title && item.size === data.size) {
-                    if (item.number === 1) {
+                    item.number += num
+                    if (item.number === 0) {
                         boxData.splice(boxData.findIndex(item => item.title === data.title && item.size === data.size), 1)
-                    } else {
-                        item.number += num
                     }
                 }
             })
@@ -110,10 +117,15 @@ export default {
                 count += item.number
             })
             let myBoxData = JSON.parse(JSON.stringify(boxData))
+            let amount = 0
+            boxData.forEach(item => {
+                amount += item.price * item.number
+            });
             return {
                 ...state,
                 boxData: myBoxData,
-                count
+                count,
+                amount
             }
         }
 

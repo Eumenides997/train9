@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, List } from 'antd';
+import { Statistic, Button, List } from 'antd';
 import { connect } from 'dva';
 import { PlusCircleOutlined, MinusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 @connect(({ shoppingBox }) => ({
-    boxData: shoppingBox.boxData
+    boxData: shoppingBox.boxData,
+    amount: shoppingBox.amount
 }))
 
 class ShoppingBox extends React.Component {
@@ -28,7 +29,7 @@ class ShoppingBox extends React.Component {
         })
     }
     render() {
-        const { boxData } = this.props
+        const { boxData, amount } = this.props
         console.log('boxData:', boxData)
         const GoodList = (
             <List
@@ -56,6 +57,10 @@ class ShoppingBox extends React.Component {
         return (
             <div>
                 {GoodList}
+                <h1 style={{ textAlign: 'center' }}>
+                    <Statistic title="总价" value={amount} precision={2} />
+                    <Button style={{ marginTop: 16 }} type="primary">支付</Button>
+                </h1>
             </div>
         )
     }

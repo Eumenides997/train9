@@ -15,9 +15,9 @@ class IndexPage extends React.Component {
   constructor() {
     super()
     this.state = {
-        visible: false
+      visible: false
     }
-}
+  }
   openDrawer = () => {
     this.setState({
       visible: true
