@@ -33,6 +33,21 @@ export default {
                     num
                 }
             })
+        },
+        *setStorage({ payload }, { put }) {
+            yield put({
+                type: 'storageData',
+                data: {
+                    boxData: JSON.parse(window.localStorage.getItem("boxData")),
+                    count: window.localStorage.getItem("count"),
+                    amount: window.localStorage.getItem("amount"),
+                }
+            })
+        },
+        *buyAll({ payload }, { put }) {
+            yield put({
+                type: 'clear'
+            })
         }
 
     },
@@ -68,6 +83,13 @@ export default {
             // redux 更新了state后，组件没有更新，没有重新渲染的问题原因是 state是引用，直接修改state的时候store内部的state同样也就变了，redux认为dispatch前后的state没有改变，就不会render，所以如果要取这整个对象进行一些修改，可以使用Object.assign或者直接简单粗暴地拷贝一份
             let myBoxData = JSON.parse(JSON.stringify(boxData))
             // console.log(myBoxData, "-4-boxData")
+
+            const storage = window.localStorage
+            storage.setItem("boxData", JSON.stringify(boxData))
+            storage.setItem("count", count)
+            storage.setItem("amount", amount)
+            // console.log("myBoxData:", myBoxData)
+            // console.log("storageBoxData:", JSON.parse(storage.getItem("boxData")))
             return {
                 ...state,
                 boxData: myBoxData,
@@ -93,6 +115,10 @@ export default {
             boxData.forEach(item => {
                 amount += item.price * item.number
             });
+            const storage = window.localStorage
+            storage.setItem("boxData", JSON.stringify(boxData))
+            storage.setItem("count", count)
+            storage.setItem("amount", amount)
             return {
                 ...state,
                 boxData: myBoxData,
@@ -121,14 +147,38 @@ export default {
             boxData.forEach(item => {
                 amount += item.price * item.number
             });
+            const storage = window.localStorage
+            storage.setItem("boxData", JSON.stringify(boxData))
+            storage.setItem("count", count)
+            storage.setItem("amount", amount)
             return {
                 ...state,
                 boxData: myBoxData,
                 count,
                 amount
             }
+        },
+        storageData(state, { data }) {
+            // console.log("data:", data)
+            // console.log("boxData:", data.boxData)
+            let myBoxData = JSON.parse(JSON.stringify(data.boxData))
+            // localStorage.clear()
+            return {
+                ...state,
+                boxData: myBoxData,
+                count: data.count,
+                amount: data.amount
+            }
+        },
+        clear(state) {
+            localStorage.clear()
+            return {
+                ...state,
+                boxData: [],
+                count: 0,
+                amount: 0
+            }
         }
-
 
     }
 

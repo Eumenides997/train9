@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Button, List } from 'antd';
+import { Statistic, Button, List, message } from 'antd';
 import { connect } from 'dva';
 import { PlusCircleOutlined, MinusCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
@@ -28,7 +28,21 @@ class ShoppingBox extends React.Component {
             }
         })
     }
+    buyAll = async () => {
+        const { dispatch } = this.props
+        await dispatch({
+            type: 'shoppingBox/buyAll'
+        })
+    }
     render() {
+        const key = 'updatable'
+        const openMessage = () => {
+            message.loading({ content: 'Loading...', key });
+            setTimeout(() => {
+                this.buyAll()
+                message.success({ content: '支付成功!', key, duration: 2 });
+            }, 1000);
+        }
         const { boxData, amount } = this.props
         console.log('boxData:', boxData)
         const GoodList = (
@@ -59,7 +73,7 @@ class ShoppingBox extends React.Component {
                 {GoodList}
                 <h1 style={{ textAlign: 'center' }}>
                     <Statistic title="总价" value={amount} precision={2} />
-                    <Button style={{ marginTop: 16 }} type="primary">支付</Button>
+                    <Button onClick={openMessage} style={{ marginTop: 16 }} type="primary">支付</Button>
                 </h1>
             </div>
         )

@@ -6,12 +6,13 @@ export default {
         productsData: [],
         productsDataAll: [],
         screenSize: '所有尺寸',
-        screenSort: '综合排序'
+        screenSort: '综合排序',
+        count: 0
     },
     effects: {
         *GetData({ paylaod }, { put, call }) {
             const res = yield call(ShopData.getProducts)
-            console.log(res)
+            // console.log(res)
             if (res) {
                 yield put({
                     type: 'setProductsData',
@@ -20,6 +21,10 @@ export default {
                 yield put({
                     type: 'setProductsDataAll',
                     data: res.data.products
+                })
+                yield put({
+                    type: 'setData',
+                    data: ''
                 })
             } else {
                 alert("API Wrong!")
@@ -91,12 +96,15 @@ export default {
             } else {
                 arr.sort((a, b) => (b['price'] - a['price']))
             }
+            let count = 0
+            arr.forEach(item => { count++ })
             let myProductsData = JSON.parse(JSON.stringify(arr))
             return {
                 ...state,
                 screenSize: size,
                 screenSort: sort,
-                productsData: myProductsData
+                productsData: myProductsData,
+                count
             }
         }
     }

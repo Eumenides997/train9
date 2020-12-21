@@ -18,6 +18,15 @@ class IndexPage extends React.Component {
       visible: false
     }
   }
+  async componentWillMount() {
+    const { dispatch } = this.props
+    if (window.localStorage.boxData) {
+        console.log(window.localStorage)
+        dispatch({
+            type: 'shoppingBox/setStorage'
+        })
+    }
+}
   openDrawer = () => {
     this.setState({
       visible: true
@@ -38,15 +47,15 @@ class IndexPage extends React.Component {
           <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
             <Screen />
           </Header>
-          <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64, textAlign: "center", backgroundColor: 'black' }}>
+          <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64, textAlign: "center", backgroundColor: 'white' }}>
             <Products />
           </Content>
         </Layout>
-        <div style={{ position: 'fixed', zIndex: 2, top: 16, left: "80%" }} >
+        <div style={{ position: 'fixed', zIndex: 2, top: 16, right: "10%" }} >
           <Badge count={count} showZero>
-            <Button icon={<ShoppingCartOutlined />} style={{ fontSize: "16px" }} onClick={this.openDrawer}>
+            <Button onClick={this.openDrawer} type="primary" shape="round" icon={<ShoppingCartOutlined />}>
               购物车
-            </Button>
+        </Button>
           </Badge>
         </div>
         <Drawer
@@ -65,4 +74,4 @@ class IndexPage extends React.Component {
 IndexPage.propTypes = {
 };
 
-export default connect()(IndexPage);
+export default IndexPage;

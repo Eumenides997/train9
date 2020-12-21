@@ -4,9 +4,7 @@ import { connect } from 'dva';
 
 @connect(({ products, shoppingBox }) => ({
     productsData: products.productsData,
-    boxData: shoppingBox.boxData,
-    amount: shoppingBox.amount,
-    count: shoppingBox.count
+    count: products.count
 }))
 
 class Products extends React.Component {
@@ -21,6 +19,12 @@ class Products extends React.Component {
         await dispatch({
             type: 'products/GetData'
         })
+        if (window.localStorage.boxData) {
+            console.log(window.localStorage)
+            dispatch({
+                type: 'shoppingBox/setStorage'
+            })
+        }
     }
     boxAdd = async (data, size) => {
         const { dispatch } = this.props
@@ -34,7 +38,7 @@ class Products extends React.Component {
         })
     }
     render() {
-        const { productsData } = this.props
+        const { productsData, count } = this.props
         const GoodsList = (productsData || []).map((item, key) => (
             <Col xs={24} sm={12} md={8} lg={6} style={{ margin: '0 auto' }} key={key}>
                 <Card style={{ width: '90%', margin: '0 auto', marginTop: 20, textAlign: "center" }}>
@@ -59,6 +63,7 @@ class Products extends React.Component {
         ))
         return (
             <div>
+                <h3>{count}件商品</h3>
                 <Row>{GoodsList}</Row>
             </div >
         )

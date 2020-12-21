@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Dropdown } from 'antd';
 import { connect } from 'dva';
+import { DownOutlined } from '@ant-design/icons';
 
 @connect(({ products }) => ({
     productsData: products.productsData,
@@ -63,11 +64,10 @@ class Screen extends React.Component {
         return (
             <div>
                 <Dropdown overlay={menu}>
-                    <a>尺寸选择</a>
-                </Dropdown>
-                asdasd
+                    <a><DownOutlined />尺寸选择</a>
+                </Dropdown>{'\u00A0'}{'\u00A0'}{'\u00A0'}
                 <Dropdown overlay={menu2}>
-                    <a>价格排序</a>
+                    <a><DownOutlined />价格排序</a>
                 </Dropdown>
             </div>
         )
