@@ -24,7 +24,7 @@ class Products extends React.Component {
     }
     boxAdd = async (data, size) => {
         const { dispatch } = this.props
-        console.log(data.title + "-1-" + size)
+        // console.log(data.title + "-1-" + size)
         await dispatch({
             type: 'shoppingBox/boxAdd',
             payload: {

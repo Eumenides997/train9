@@ -8,6 +8,25 @@ import { PlusCircleOutlined, MinusCircleOutlined, CloseCircleOutlined } from '@a
 }))
 
 class ShoppingBox extends React.Component {
+    boxDelete = async (data) => {
+        const { dispatch } = this.props
+        await dispatch({
+            type: 'shoppingBox/boxDelete',
+            payload: {
+                data
+            }
+        })
+    }
+    boxChange = async (data, num) => {
+        const { dispatch } = this.props
+        await dispatch({
+            type: 'shoppingBox/boxChange',
+            payload: {
+                data,
+                num
+            }
+        })
+    }
     render() {
         const { boxData } = this.props
         console.log('boxData:', boxData)
@@ -19,10 +38,10 @@ class ShoppingBox extends React.Component {
                     <List.Item
                         actions={[
                             <Button.Group size="small">
-                                <Button icon={<PlusCircleOutlined />} style={{ border: 'none' }} />
-                                <Button icon={<MinusCircleOutlined />} style={{ border: 'none' }} />
+                                <Button onClick={() => this.boxChange(item, 1)} icon={<PlusCircleOutlined />} style={{ border: 'none' }} />
+                                <Button onClick={() => this.boxChange(item, -1)} icon={<MinusCircleOutlined />} style={{ border: 'none' }} />
                             </Button.Group>,
-                            <Button icon={<CloseCircleOutlined />} style={{ border: 'none' }} />
+                            <Button onClick={() => this.boxDelete(item)} icon={<CloseCircleOutlined />} style={{ border: 'none' }} />
                         ]}
                     >
                         <List.Item.Meta
