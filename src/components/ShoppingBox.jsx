@@ -44,7 +44,7 @@ class ShoppingBox extends React.Component {
             }, 1000);
         }
         const { boxData, amount } = this.props
-        console.log('boxData:', boxData)
+        // console.log('boxData:', boxData)
         const GoodList = (
             <List
                 itemLayout="horizontal"
@@ -62,7 +62,7 @@ class ShoppingBox extends React.Component {
                         <List.Item.Meta
                             avatar={<img src={`./img/${item.sku}_2.jpg`} alt="1" style={{ width: 50 }} />}
                             title={item.title}
-                            description={item.size + " | " + item.style}
+                            description={item.size + " | $" + item.price}
                         />
                         <div>x {item.number}</div>
                     </List.Item>
