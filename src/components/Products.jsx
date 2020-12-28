@@ -45,7 +45,7 @@ class Products extends React.Component {
                     <img src={`./img/${item.sku}_1.jpg`} style={{ width: '80%' }} alt={"h"} />
                     <h3 style={{ fontSize: 10 }}>{item.title}</h3>
                     <hr />
-                    <h3 style={{ fontSize: 15 }}>{item.currencyFormat + item.price}</h3>
+                    <h3 style={{ fontSize: 15 }}>{item.currencyFormat + item.price.toFixed(2)}</h3>
                     <Popover
                         content={
                             <List
