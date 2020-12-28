@@ -60,7 +60,7 @@ class IndexPage extends React.Component {
         </div>
         <Drawer
           title="购物车物品"
-          width="500"
+          width="80%"
           placement="right"
           onClose={this.closeDrawer}
           visible={this.state.visible}>
